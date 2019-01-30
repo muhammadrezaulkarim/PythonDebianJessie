@@ -8,6 +8,7 @@ COPY . /usr/src/app
 
 RUN pip install pandas
 RUN pip install CherryPy
+RUN pip install lru-dict
 
 EXPOSE 8080
 ENTRYPOINT ["python", "ws.py"]
