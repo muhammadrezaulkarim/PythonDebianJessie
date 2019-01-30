@@ -1,0 +1,13 @@
+from python:3.6.4-slim-jessie
+
+RUN mkdir -p /usr/src/app
+
+WORKDIR /usr/src/app
+
+COPY . /usr/src/app
+
+RUN pip install pandas
+RUN pip install CherryPy
+
+EXPOSE 8080
+ENTRYPOINT ["python", "ws.py"]
