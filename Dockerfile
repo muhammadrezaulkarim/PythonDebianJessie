@@ -6,6 +6,9 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
+RUN apt-get update
+RUN apt-get -y install gcc
+
 RUN pip install pandas
 RUN pip install CherryPy
 RUN pip install lru-dict
