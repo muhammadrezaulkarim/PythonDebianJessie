@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+  redmine:
+    image: redmine:4.0.3
+    restart: always
+    networks:
+      - issuenetwork
+    ports:
+      - 3000:3000
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: admin123
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - redmine-mysql-data:/var/lib/mysql
+    restart: always
+    networks:
+      - issuenetwork
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: redmine
+
+  jira:
+    image: dchevell/jira-software:7.13
+    volumes:
+      - jira-data:/var/atlassian/application-data/jira
+    restart: always
+    networks:
+      - issuenetwork
+    ports:
+      - 8080:8080
+ 
+networks:
+    issuenetwork:
+
+volumes:
+   redmine-mysql-data:
+     external:
+       name: redmine-mysql-data
+   
+   jira-data:
+     external:
+       name: jira-data
